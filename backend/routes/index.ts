@@ -3,7 +3,7 @@ import userRouter from './userRouter';
 const router:Router = express.Router();
 
 router.get('/',(req:Request,res:Response) => {
-    return  res.json({message:"Sanhay Hub API 1.0.0"});
+    return  res.json({message:"Sanhay Hub API 1.0.1"});
 });
 router.use('/user',userRouter);
 
