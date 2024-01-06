@@ -1,12 +1,12 @@
 // https://github.com/jwalton/passport-api-docs
 
 require("dotenv").config();
+import { compareSync } from "bcryptjs"
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const passportJWT = require('passport-jwt');
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
-const bcrypt = require('bcryptjs');
 
 import prisma from "../db/prisma";
 import { User } from "@prisma/client";
@@ -19,14 +19,15 @@ passport.use(new LocalStrategy(
     async function (username: string, password: string, done: Function) {
         // Checks if username and password is exactly correct
         // Might change this later when applying password encryption
-        const user = await prisma.user.findUnique({ where: { username: username, password: password } });
+        const user = await prisma.user.findUnique({ where: { username: username } });
         // The result query is empty then that means that either username and password is wrong
-        if (!user) {
+        if (!user || !compareSync(password, user.password)) {
             // Pattern if the authentication form is wrong, the third parameter indicates what is the message
-            { return done(null, false, { message: "Incorrect username or password" }); }
+            return done(null, false, { message: "Incorrect username or password" });
         }
-        // Patter if the authentication is correct, the third parameter indicates what is the message
-        return done(null, user, { message: "Logged In Successfuly" });
+        const { password: userPassword, ...userObj } = user;
+        // Pattern if the authentication is correct, the third parameter indicates what is the message
+        return done(null, userObj, { message: "Logged In Successfully" });
     }
 ));
 
