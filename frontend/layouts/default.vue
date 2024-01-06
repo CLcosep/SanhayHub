@@ -1,6 +1,6 @@
 <template>
     <!-- Navigation -->
-    <div class="bg-[#001840]">
+    <div class="bg-[#001840] h-full">
         <header class="shadow-sm">
             <nav class="container mx-auto p-4 flex justify-between items-center text-white">
                <NuxtLink to="/" class="font-bold text-3xl">Sanhayhub</NuxtLink>
