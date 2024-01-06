@@ -1,9 +1,9 @@
 <template>
     <!-- Navigation -->
-    <div>
-        <header class="shadow-sm bg-purple-200">
-            <nav class="container mx-auto p-4 flex justify-between items-center">
-               <NuxtLink to="/" class="font-bold text-4xl text-yellow-400">Sanhayhub</NuxtLink>
+    <div class="bg-[#001840]">
+        <header class="shadow-sm">
+            <nav class="container mx-auto p-4 flex justify-between items-center text-white">
+               <NuxtLink to="/" class="font-bold text-3xl">Sanhayhub</NuxtLink>
                 <ul class="flex gap-5">
                     <li><NuxtLink to="/">Home</NuxtLink></li>
                     <li><NuxtLink to="/about">About</NuxtLink></li>
@@ -15,7 +15,7 @@
 
 
         <!-- output page content -->
-        <div class="container mx-auto ">
+        <div class="container mx-auto">
             <slot />
         </div>
     </div>

@@ -1,8 +1,8 @@
 <template>
-    <div class="container display-box bg-slate-700">
-        <div class="flex justify-center items-center">
-            <img src="~/assets/anhs_logo.png" alt="">
-        </div>
+    <div class="display-box border">
+        <!-- <div class="flex justify-center items-center">
+            <img src="~/assets/anhs_logo.png" alt="" >
+        </div> -->
 
         <div class="flex justify-center items-center">
             <div class="text-center">
@@ -13,10 +13,10 @@
             </div>
         </div>
         
-        <div>
+        <!-- <div>
             <img src="~/assets/anhs1.jpg" alt="" />
        
-        </div>
+        </div> -->
     </div>
 </template>
 
