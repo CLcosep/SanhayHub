@@ -21,7 +21,7 @@ model User {
 model GradeLevel{
   id Int @id @default(autoincrement())
   name String 
-  gradeNo Int
+  gradeNo Int 
   sections Section[]
 }
 

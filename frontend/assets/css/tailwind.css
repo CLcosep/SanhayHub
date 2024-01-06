@@ -8,8 +8,9 @@
         height: 100%;
         @apply bg-white
     }
+
     
-    /* .btn{
-        @apply bg-[#beabed] text-white px-3 py-2  rounded-md text-sm text-white;
-    } */
+    .btn{
+        @apply bg-[#102A71] text-white px-3 py-2  rounded-md text-sm text-white;
+    }
 }
