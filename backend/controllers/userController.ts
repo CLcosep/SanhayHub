@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
+import prisma from "../db/prisma";
+
+
 const findOne = async (req:Request,res:Response) => {
-    return res.json({message:"Hello from UserController"});
+    const allGrades = await prisma.gradeLevel.findMany();
+    return res.json(allGrades);
 }
+
+
 
 export default {findOne};
