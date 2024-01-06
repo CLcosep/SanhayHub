@@ -2,26 +2,19 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export default prisma;
 
 async function main() {
-    console.log("prisma initialized!")
+  try {
+    // Try to perform a query
+    await prisma.user.findMany();
+    console.log("Prisma Initialized!")
+  } catch (error) {
+    console.error("Error initializing Prisma\n", error)
+  } finally {
+    await prisma.$disconnect()
+  }
 }
 
-main()
-    
-  .then(async () => {
+main();
 
-    await prisma.$disconnect()
-
-  })
-
-  .catch(async (e) => {
-
-    console.error(e)
-
-    await prisma.$disconnect()
-
-    process.exit(1)
-
-  })
+export default prisma;
