@@ -19,7 +19,7 @@ passport.use(new LocalStrategy(
     async function (username: string, password: string, done: Function) {
         // Checks if username and password is exactly correct
         // Might change this later when applying password encryption
-        const user = await prisma.user.findUnique({ where: { username: username } });
+        const user = await prisma.user.findUnique({ where: { username: username.toLowerCase() } });
         // The result query is empty then that means that either username and password is wrong
         if (!user || !compareSync(password, user.password)) {
             // Pattern if the authentication form is wrong, the third parameter indicates what is the message

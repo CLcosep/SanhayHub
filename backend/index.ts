@@ -8,10 +8,11 @@ dotenv.config();
 
 // PassportJS Setup
 require('./auth/passport'); // loads the rest of the code
-
+require('./microservices/supabase');
 const app: Application = express();
 const port = process.env.PORT || 8000;
 app.use(cors());
+app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(passport.initialize());
 app.use('/', router);
