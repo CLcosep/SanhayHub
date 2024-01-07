@@ -40,7 +40,7 @@ export const create = [
 //findOne
 export async function findOne(req: Request, res: Response) {
     if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
-    const gradeLevel = await prisma.gradeLevel.findUnique({ where: { id: parseInt(req.params.id) } })
+    const gradeLevel = await prisma.gradeLevel.findUnique({ where: { id: parseInt(req.params.id) }, include: { sections: true } })
     if (!gradeLevel) {
         return res.status(400).json({
             message: 'id not found or does not exist'

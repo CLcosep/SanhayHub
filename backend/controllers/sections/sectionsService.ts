@@ -36,7 +36,7 @@ export const create = [
 //findOne
 export async function findOne(req: Request, res: Response) {
     if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
-    const section = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) } })
+    const section = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) }, include: { subjects: true } })
     if (!section) {
         return res.status(400).json({
             message: `section #${req.params.id} not found or does not exist`

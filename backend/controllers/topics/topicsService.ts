@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { Subject } from "@prisma/client";
 import { validationResult } from "express-validator"
 import prisma from "../../db/prisma";
-import { createSubjectValidation, updateSubjectValidation } from "./subjectsValidation";
+import { createSubjectValidation, updateSubjectValidation } from "./topicsValidation";
 
 //create
 export const create = [
@@ -36,7 +36,7 @@ export const create = [
 //findOne
 export async function findOne(req: Request, res: Response) {
     if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
-    const Subject = await prisma.subject.findUnique({ where: { id: parseInt(req.params.id) }, include: { topics: true } })
+    const Subject = await prisma.subject.findUnique({ where: { id: parseInt(req.params.id) } })
     if (!Subject) {
         return res.status(400).json({
             message: `Subject #${req.params.id} not found or does not exist`
