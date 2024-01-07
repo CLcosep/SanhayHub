@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import router from './routes';
 import cors from 'cors'
 import passport from 'passport';
+import logger from "morgan"
 //For env File 
 dotenv.config();
 
@@ -12,6 +13,7 @@ require('./microservices/supabase');
 const app: Application = express();
 const port = process.env.PORT || 8000;
 app.use(cors());
+app.use(logger('dev'));
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(passport.initialize());
