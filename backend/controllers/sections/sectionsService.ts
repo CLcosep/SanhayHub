@@ -14,8 +14,7 @@ export const create = [
             return;
         }
         const form = req.body as Section
-        console.log(typeof form.gradeId)
-        const section = await prisma.section.findFirst({ where: { name: form.name } })
+        const section = await prisma.section.findFirst({ where: form })
         if (section) {
             return res.status(400).json({
                 message: 'Section already exist make another'
@@ -36,6 +35,7 @@ export const create = [
 ]
 //findOne
 export async function findOne(req: Request, res: Response) {
+    if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
     const section = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) } })
     if (!section) {
         return res.status(400).json({
@@ -53,6 +53,7 @@ export async function findAll(req: Request, res: Response) {
 export const update = [
     ...updateSectionValidation,
     async (req: Request, res: Response) => {
+        if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             res.status(400).json({ errors: errors.array() });
@@ -78,6 +79,23 @@ export const update = [
             }
             optionalForm["gradeId"] = form.gradeId
         }
+        // composite unique constraints
+        if (form.name && form.gradeId) {
+            const sectionExist = await prisma.section.findFirst({ where: { name: form.name, gradeId: form.gradeId } });
+            if (sectionExist) {
+                return res.status(400).json({
+                    message: 'Section already exist make another'
+                })
+            }
+        }
+        if (form.name && !form.gradeId) {
+            const sectionExist = await prisma.section.findFirst({ where: { name: form.name, gradeId: section.gradeId } });
+            if (sectionExist) {
+                return res.status(400).json({
+                    message: 'Section already exist make another'
+                })
+            }
+        }
         const updatesection = await prisma.section.update({
             where: { id: parseInt(req.params.id) },
             data: optionalForm
@@ -87,8 +105,9 @@ export const update = [
 ]
 // remove
 export async function remove(req: Request, res: Response) {
-    const gradeFind = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) } })
-    if (!gradeFind) {
+    if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
+    const section = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) } })
+    if (!section) {
         return res.status(400).json({
             message: `section #${req.params.id} not found or does not exist`
         })

@@ -27,11 +27,12 @@ model GradeLevel{
 
 model Section {
   id Int @id @default(autoincrement())
-  name String
+  name String 
   //primary foreign             //primary           //foreign
   gradeLevel GradeLevel @relation(fields:[gradeId], references: [id])
-  gradeId Int
+  gradeId Int 
   subjects Subject[]
+  @@unique([name, gradeId])
 }
 
 model Subject {
@@ -40,6 +41,7 @@ model Subject {
   sections Section @relation(fields: [sectionId], references: [id])
   sectionId Int
   topics Topic[]
+  @@unique([name, sectionId])
 }
 
 model Topic{
@@ -48,4 +50,5 @@ model Topic{
   fileLink String
   subjects Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
+  @@unique([name, subjectId])
 }
