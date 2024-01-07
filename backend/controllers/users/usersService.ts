@@ -19,18 +19,20 @@ export const create = [
         }
         const form = req.body as User;
         // If User already exist in the database then cancel the create request
-        const userExist = await prisma.user.findUnique({ where: { username: form.username } });
+        const userExist = await prisma.user.findUnique({ where: { username: form.username.toLowerCase() } });
         if (userExist) {
             return res.status(409).json({ message: "User already exists" });
         }
         // Creates new user
         form.password = hashSync(form.password, genSaltSync());
+        form.username = form.username.toLowerCase();
         const newUser = await prisma.user.create({ data: { username: form.username, password: form.password } });
         return res.status(200).json(newUser);
     }
 ]
 
 export async function findOne(req: Request, res: Response) {
+    if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
     const user = await prisma.user.findUnique({ where: { id: parseInt(req.params.id) } });
     if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -46,6 +48,7 @@ export const update = [
     param("id").isNumeric().withMessage({ message: "Please provide an numeric id in params" }),
     ...updateUserValidation,
     async (req: Request, res: Response) => {
+        if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
         const errors = validationResult(req); //checks if the request objects contains errors
         // If there are errors in the form
         if (!errors.isEmpty()) {
@@ -58,7 +61,7 @@ export const update = [
             return res.status(404).json({ message: "User not found" });
         }
         if (form.username) {
-            const userExist = await prisma.user.findUnique({ where: { username: form.username } });
+            const userExist = await prisma.user.findUnique({ where: { username: form.username.toLowerCase() } });
             if (userExist) {
                 return res.status(409).json({ message: "User already exists" });
             }
@@ -72,6 +75,7 @@ export const update = [
 ]
 
 export async function remove(req: Request, res: Response) {
+    if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
     const user = await prisma.user.findUnique({ where: { id: parseInt(req.params.id) } });
     if (!user) {
         return res.status(404).json({ message: "User not found" });
