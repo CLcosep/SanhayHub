@@ -45,6 +45,7 @@
       </h4>
       <div class="grid grid-cols-3 p-4">
         <div class="text-center px-8">
+          <img src="/why1.png" class="h-56 mx-auto" alt="" />
           <h5 class="font-medium text-3xl">Personalized Learning</h5>
           <p class="text-lg font-normal">
             Students get to learn on their own pace. Discover and expect
@@ -53,6 +54,7 @@
           </p>
         </div>
         <div class="text-center px-8">
+          <img src="/why2.png" class="h-56 mx-auto" alt="" />
           <h5 class="font-medium text-3xl">Trusted Content</h5>
           <p class="text-lg font-normal">
             Sanhay Hub's open-source library, crafted by experts, provides
@@ -63,6 +65,7 @@
           </p>
         </div>
         <div class="text-center px-8">
+          <img src="/why3.png" class="h-56 mx-auto" alt="" />
           <h5 class="font-medium text-3xl">Collaborative student efforts</h5>
           <p class="text-lg font-normal">
             Our resources is backed by a community of students and educators who

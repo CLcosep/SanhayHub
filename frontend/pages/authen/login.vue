@@ -31,11 +31,11 @@
             </nav>
         </header>
         
-    <div class="container mx-auto">
+    <div class="container mx-auto flex flex-col items-center">
         <div class="flex justify-center items-center">
             <img src="~/assets/anhs_logo.png" alt="" class="w-24 h-24 mb-8"/>
         </div>
-        <div class="form-box rounded-2xl">
+        <div class="form-box rounded-2xl w-full max-w-md">
             <h1 class="relative" ref="titleRef">
                 Log In
                 <span class="custom-after"></span>
@@ -60,13 +60,7 @@
 
 
 <style scoped>
- .form-box{
-        width: 90%;
-        max-width: 450px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+    .form-box{
         border: 2px solid;
         border-color: black;
         padding: 50px 60px 70px;
