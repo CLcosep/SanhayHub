@@ -27,7 +27,10 @@
                 <NuxtLink to="/" class="btn px-6 py-3 text-lg">Explore Now</NuxtLink>
             </div>
         </div>
+
     </div>
+
+    
 </template>
 
 <script setup lang="ts">

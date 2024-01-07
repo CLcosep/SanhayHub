@@ -68,12 +68,6 @@
 
 <style scoped>
     .form-box{
-        width: 90%;
-        max-width: 450px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         border: 2px solid;
         border-color: black;
         padding: 50px 60px 70px;
