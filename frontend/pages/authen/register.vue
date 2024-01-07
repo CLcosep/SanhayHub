@@ -23,7 +23,7 @@
     <!-- nav -->
     <header class="shadow-sm">
             <nav class="container mx-auto p-4 flex justify-between items-center">
-                <NuxtLink to="/" class="font-bold text-2xl">Sanhayhub</NuxtLink>
+                <NuxtLink to="/" class="text-3xl tracking-widest  ">Sanhayhub</NuxtLink>
                 <ul class="flex gap-5">
                     <li><NuxtLink to="/">Home</NuxtLink></li>
                     <li><NuxtLink to="/about">About</NuxtLink></li>
@@ -33,8 +33,11 @@
             </nav>
         </header>
 
-    <div class="container mx-auto">
-        <div class="form-box">
+    <div class="container mx-auto flex flex-col items-center">
+        <div class="flex justify-center">
+            <img src="~/assets/anhs_logo.png" alt="" class="w-24 h-24 mb-8"/>
+        </div>
+        <div class="form-box rounded-2xl w-full max-w-md">
             <h1 class="relative" ref="titleRef">
                 Sign Up
                 <span class="custom-after"></span>
@@ -53,10 +56,10 @@
                 </div>
             </form>
            <div class="signBtn flex flex-col gap-4 justify-center">
-                <button @click="formHandler" class="border-2 bg-[#FFDC5F] py-4 rounded-md">
+                <button @click="formHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">
                     Register
                 </button>
-            <NuxtLink to="/authen/login" class="text-white">Login</NuxtLink>
+            <NuxtLink to="/authen/login" class="underline " >already have an account? <span class="text-[#102A71]">Login</span></NuxtLink>
            </div>
         </div>
     </div>
@@ -71,7 +74,8 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: #102A71;
+        border: 2px solid;
+        border-color: black;
         padding: 50px 60px 70px;
         text-align: center;
     }
@@ -79,15 +83,16 @@
         font-size: 30px;
         font-weight: bold;
         margin-bottom: 60px;
-        color: white;
+        color: black;
         position: relative;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
     .custom-after::after{
         content: '';
         width: 30px;
         height: 4px;
         border-radius: 3px;
-        background: white;
+        background: black;
         position: absolute;
         bottom: -12px;
         left: 50%;
@@ -110,7 +115,5 @@
         outline: 0;
         padding: 18px 15px;
     }
-   
-    
     
 </style>

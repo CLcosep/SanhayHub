@@ -3,7 +3,7 @@
         <!-- header -->
         <header class="shadow-sm">
             <nav class="container mx-auto p-4 flex justify-between items-center">
-                <NuxtLink to="/" class="font-bold text-2xl">Sanhayhub</NuxtLink>
+                <NuxtLink to="/" class="text-3xl tracking-widest  ">Sanhayhub</NuxtLink>
                 <ul class="flex gap-5">
                     <li><NuxtLink to="/">Home</NuxtLink></li>
                     <li><NuxtLink to="/about">About</NuxtLink></li>
@@ -26,12 +26,6 @@
                 <p class=" mb-4 text-black text-opacity-55">Enrich educational journeys by curating a versatile and inclusive library of school modules, fostering collaboration among educators and students for enhanced learning experiences.</p>
                 <NuxtLink to="/" class="btn px-6 py-3 text-lg">Explore Now</NuxtLink>
             </div>
-            
-        
-            <!-- <div>
-            <img src="~/assets/anhs1.jpg" alt="" />
-       
-            </div> -->
         </div>
     </div>
 </template>
