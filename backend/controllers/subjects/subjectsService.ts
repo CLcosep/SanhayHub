@@ -74,7 +74,7 @@ export const update = [
             const sectionExist = await prisma.section.findUnique({ where: { id: form.sectionId } });
             if (!sectionExist) {
                 return res.status(400).json({
-                    message: 'Grade level does not exist'
+                    message: 'Section does not exist'
                 })
             }
             optionalForm["sectionId"] = form.sectionId

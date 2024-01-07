@@ -47,7 +47,7 @@ model Subject {
 model Topic{
   id Int @id @default(autoincrement())
   name String
-  fileLink String
+  file String
   subjects Subject @relation(fields: [subjectId], references: [id])
   subjectId Int
   @@unique([name, subjectId])

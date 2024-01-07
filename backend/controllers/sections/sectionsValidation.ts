@@ -1,4 +1,4 @@
-import { body } from "express-validator"
+import { body, check } from "express-validator"
 //name String
 //gradeInt Int
 export const createSectionValidation = [
@@ -9,7 +9,7 @@ export const createSectionValidation = [
     body('gradeId')
         .exists().withMessage({ message: 'provide a grade Id' })
         .toInt()
-        .isNumeric().withMessage({ message: 'must be a number' })
+        .isNumeric().withMessage({ message: 'must be a number' }),
 ]
 
 export const updateSectionValidation = [

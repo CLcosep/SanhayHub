@@ -3,10 +3,12 @@ import { notYetImplemented } from '../helper';
 import { create, findAll, findOne, remove, update } from './topicsService';
 import passport from 'passport';
 import { check, param } from 'express-validator';
+import multer from 'multer';
+const upload = multer();
 
-export const subjectsControllers: Router = express.Router();
-subjectsControllers.get('/', findAll); // findAll
-subjectsControllers.get('/:id', findOne); // findOne
-subjectsControllers.post('/', passport.authenticate('jwt', { session: false }), create); // create
-subjectsControllers.patch('/:id', passport.authenticate('jwt', { session: false }), update); // update
-subjectsControllers.delete('/:id', passport.authenticate('jwt', { session: false }), remove); // delete
+export const topicsControllers: Router = express.Router();
+topicsControllers.get('/', findAll); // findAll
+topicsControllers.get('/:id', findOne); // findOne
+topicsControllers.post('/', passport.authenticate('jwt', { session: false }), upload.single('file'), create); // create
+topicsControllers.patch('/:id', passport.authenticate('jwt', { session: false }), upload.single('file'), update); // update
+topicsControllers.delete('/:id', passport.authenticate('jwt', { session: false }), remove); // delete
