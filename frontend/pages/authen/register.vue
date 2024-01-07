@@ -19,21 +19,9 @@
 
 
 <template>
+>
 
-    <!-- nav -->
-    <header class="shadow-sm">
-            <nav class="container mx-auto p-4 flex justify-between items-center">
-                <NuxtLink to="/" class="text-3xl tracking-widest  ">Sanhayhub</NuxtLink>
-                <ul class="flex gap-5">
-                    <li><NuxtLink to="/">Home</NuxtLink></li>
-                    <li><NuxtLink to="/about">About</NuxtLink></li>
-                    <li><NuxtLink to="/">Explore</NuxtLink></li>
-                    <li><NuxtLink to="/authen/register" class="btn">Sign in</NuxtLink></li>
-                </ul>
-            </nav>
-        </header>
-
-    <div class="container mx-auto flex flex-col items-center">
+    <div class="container mx-auto flex flex-col items-center mb-40">
         <div class="flex justify-center">
             <img src="~/assets/anhs_logo.png" alt="" class="w-24 h-24 mb-8"/>
         </div>

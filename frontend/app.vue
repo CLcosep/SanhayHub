@@ -1,6 +1,22 @@
 <template>
   <NuxtLayout>
     <NuxtLoadingIndicator :color="'yellow'" />
+    <header class="shadow-sm">
+      <nav class="container mx-auto p-4 flex justify-between items-center">
+        <div class="flex justify-center items-center">
+            <img src="/logo.png" alt="" class="h-24 bg-white rounded-full object-zoom">
+            <NuxtLink to="/" class="text-3xl tracking-widest ml-0">Sanhayhub</NuxtLink>
+        </div>
+        <ul class="flex gap-5">
+          <li><NuxtLink to="/">Home</NuxtLink></li>
+          <li><NuxtLink to="/about">About</NuxtLink></li>
+          <li><NuxtLink to="/gradeLevel">Explore</NuxtLink></li>
+          <li>
+            <NuxtLink to="/authen/register" class="btn">Sign in</NuxtLink>
+          </li>
+        </ul>
+      </nav>
+    </header>
     <NuxtPage />
 
     <footer class="bg-main">
