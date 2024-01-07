@@ -3,9 +3,10 @@ export default {
   content: [],
   theme: {
     extend: {
-      
+      colors: {
+        main: "#102A71",
+      },
     },
   },
   plugins: [],
-}
-
+};
