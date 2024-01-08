@@ -2,6 +2,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
-  runtimeConfig: {public: {API: process.env.API}}
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/logo.png' },
+      ]
+    }
+  },
+  runtimeConfig: { public: { API: process.env.API } },
   // const API = runtimeConfig().public.API
 })
