@@ -1,7 +1,7 @@
 <script setup>
     const form = reactive({
-        sectionName: '',
-        sectionNum: '',
+        gradeName: '',
+        gradeNum: '',
     })
 
      definePageMeta({
@@ -23,22 +23,22 @@
         </div>
         <div class="form-box rounded-2xl w-full max-w-md">
             <h1 class="relative" ref="titleRef">
-               Section form 
+                Grade level form 
                 <span class="custom-after"></span>
             </h1>
             <form>
                 <div class="h-[280px]">
                     <div class="input-field" ref="nameFieldRef">
-                        <input type="text" v-model="form.sectionName" placeholder="Section name">
+                        <input type="text" v-model="form.gradeName" placeholder="Grade name">
                     </div>
                     <div class="input-field" >
-                        <input type="number" v-model="form.sectionNum" placeholder="Grade ID">
+                        <input type="number" v-model="form.gradeNum" placeholder="Grade level">
                     </div>
                 </div>
             </form>
            <div class="signBtn flex flex-col gap-4 justify-center">
                 <button @click="buttonHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">
-                    Add section
+                    Add grade level
                 </button>
             <NuxtLink to="/gradeLevel" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
            </div>

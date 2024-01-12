@@ -1,25 +1,94 @@
-<script setup lang="ts">
+<script setup>
+    const form = reactive({
+        subjectName: '',
+        subjectNum: '',
+    })
 
+     definePageMeta({
+        layout: 'default'
+    })
+
+    async function buttonHandler() {
+    await navigateTo('/gradeLevel');
+}
 </script>
 
+
 <template>
-    <div class="container mx-auto flex flex-col items-center mb-40 justify-center p-4">
-        <form class="w-[300px]">
-            <div class="mb-5">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Name</label>
-                <input type="email" id="email" class=" border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
-            </div>
-            <div class="mb-5">
-                <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Grade level</label>
-                <input type="number" id="password" class=" border border-black text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-            </div>
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ">Submit</button>
-        </form>
+>
+
+    <div class="container mx-auto flex flex-col items-center mb-40">
+        <div class="flex justify-center">
+            <img src="~/assets/anhs_logo.png" alt="" class="w-24 h-24 mb-8"/>
+        </div>
+        <div class="form-box rounded-2xl w-full max-w-md">
+            <h1 class="relative" ref="titleRef">
+               Subject form 
+                <span class="custom-after"></span>
+            </h1>
+            <form>
+                <div class="h-[280px]">
+                    <div class="input-field" ref="nameFieldRef">
+                        <input type="text" v-model="form.subjectName" placeholder="Subject name">
+                    </div>
+                    <div class="input-field" >
+                        <input type="number" v-model="form.subjectNum" placeholder="Section ID">
+                    </div>
+                </div>
+            </form>
+           <div class="signBtn flex flex-col gap-4 justify-center">
+                <button @click="buttonHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">
+                    Add subject
+                </button>
+            <NuxtLink to="/gradeLevel" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
+           </div>
+        </div>
     </div>
 </template>
 
 
-
 <style scoped>
-
+    .form-box{
+        border: 2px solid;
+        border-color: black;
+        padding: 50px 60px 70px;
+        text-align: center;
+    }
+    .form-box h1 {
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 60px;
+        color: black;
+        position: relative;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .custom-after::after{
+        content: '';
+        width: 30px;
+        height: 4px;
+        border-radius: 3px;
+        background: black;
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .input-field {
+        background: #eaeaea;
+        margin: 15px 0px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        max-height: 65px;
+        transition: max-height 0.5s;
+        overflow: hidden;
+    }
+    input{ 
+        width: 100%;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        padding: 18px 15px;
+    }
+    
 </style>
