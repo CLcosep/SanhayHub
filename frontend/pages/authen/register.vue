@@ -1,7 +1,6 @@
 <script setup>
     const form = reactive({
         username: '',
-        email: '',
         password: '',
     })
 
@@ -9,11 +8,25 @@
         layout: 'default'
     })
 
-    function formHandler(e) {
-        console.log(form.username);
-        console.log(form.email)
-        console.log(form.password);
+   async function formHandler(e) {
+        const API = useRuntimeConfig().public.API
+        const data = await $fetch(`${ API}/users`, {
+            method: 'POST',
+            body: JSON.stringify({
+                username: form.username,
+                password: form.password
+            })
+        })
+        .catch(error => {
+            alert(error.data.message)
+        })
+        if (data){
+            alert(`Successfuly registered ${data.name}`)
+        }
     }
+
+    const userObj = useUserObj().value
+    console.log(userObj)
 
 </script>
 
@@ -34,9 +47,6 @@
                 <div class="h-[280px]">
                     <div class="input-field" ref="nameFieldRef">
                         <input type="text" v-model="form.username" placeholder="UserName">
-                    </div>
-                    <div class="input-field" ref="nameFieldRef">
-                        <input type="text" v-model="form.email" placeholder="Email">
                     </div>
                     <div class="input-field" >
                         <input type="password" v-model="form.password" placeholder="Password">

@@ -8,14 +8,34 @@
         layout: 'default'
     })
 
-    async function buttonHandler() {
-    await navigateTo('/gradeLevel');
-}
+    const errors = ref([])
+
+    async function buttonHandler(e) {
+        const API = useRuntimeConfig().public.API
+        const token = useCookie('auth_token').value
+        const data = await $fetch(`${ API}/gradeLevels`, {
+            method: 'POST',
+            body: JSON.stringify({
+                name: form.gradeName,
+                gradeNo: form.gradeNum
+            }), 
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .catch(error => {
+            errors.value = error.data.errors
+        })
+        if (data){
+          alert(`Successfully created ${data.name} grade:${data.gradeNo}`)
+          await navigateTo(`/gradeLevel/${data.id}`)
+        }
+    }
+
 </script>
 
 
 <template>
->
 
     <div class="container mx-auto flex flex-col items-center mb-40">
         <div class="flex justify-center">
@@ -43,6 +63,8 @@
             <NuxtLink to="/gradeLevel" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
            </div>
         </div>
+
+        <div>{{ errors }}</div>
     </div>
 </template>
 

@@ -117,3 +117,9 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         });
     })(req, res, next);
 }
+
+
+export function validateUser(req: Request, res: Response){
+    return res.json(req.user)
+    
+}

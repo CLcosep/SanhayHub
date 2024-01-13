@@ -1,4 +1,5 @@
 <script setup>
+ 
     const form = reactive({
         username: '',
         password: '',
@@ -8,9 +9,34 @@
         layout: 'default'
     })
 
-    function formHandler(e) {
-        console.log(form.username);
-        console.log(form.password);
+    async function formHandler(e) {
+        const API = useRuntimeConfig().public.API
+        const data = await $fetch(`${ API}/users/login`, {
+            method: 'POST',
+            body: JSON.stringify({
+                username: form.username,
+                password: form.password
+            })
+        })
+        .catch(error => {
+            alert(error.data.message)
+        })
+        if (data){
+           console.log(data)
+           const token = useCookie('auth_token')
+            token.value = data.token
+            const userObj = useUserObj().value
+            userObj.isLogin = true
+            userObj.username = data.user.username
+            await navigateTo('/')
+        }
+    }
+
+    const userObj = useUserObj().value
+    console.log(userObj)
+
+    if(userObj.isLogin){
+        await navigateTo('/')
     }
 
 </script>

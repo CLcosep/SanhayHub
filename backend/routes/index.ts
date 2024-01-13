@@ -19,3 +19,4 @@ router.use('/auth', passport.authenticate('jwt', { session: false }), (req: Requ
     return res.json(req.user);
 });
 export default router;
+

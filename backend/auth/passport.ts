@@ -35,9 +35,9 @@ passport.use(new LocalStrategy(
 var opts: { [key: string]: any } = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.SECRET_KEY;
-passport.use(new JwtStrategy(opts, function (jwt_payload: User, done: Function) {
-    const user = prisma.user.findUnique({
-        where: { id: jwt_payload.id, username: jwt_payload.username },
+passport.use(new JwtStrategy(opts, async function (jwt_payload: {user: User}, done: Function) {
+    const user = await prisma.user.findUnique({
+        where: { id: jwt_payload.user.id, username: jwt_payload.user.username },
         select: { username: true, id: true } // Excluding password
     });
     if (!user) {
@@ -45,5 +45,6 @@ passport.use(new JwtStrategy(opts, function (jwt_payload: User, done: Function) 
         return done(null, false);
     }
     // upon success the req.user is available to any next middleware or route handler
+    console.log(user)
     return done(null, user);
 }));
