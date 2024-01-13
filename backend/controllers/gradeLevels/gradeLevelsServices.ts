@@ -99,16 +99,21 @@ export const update = [
 // remove
 export async function remove(req: Request, res: Response) {
     if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
-    const gradeFind = await prisma.gradeLevel.findUnique({ where: { id: parseInt(req.params.id) } })
+    const gradeFind = await prisma.gradeLevel.findUnique({ where: { id: parseInt(req.params.id) }, include: { sections: true } })
     if (!gradeFind) {
         return res.status(400).json({
             message: `Id: ${req.params.id} not found`
         })
-    } else {
-        return res.status(200).json(
-            await prisma.gradeLevel.delete({ where: { id: parseInt(req.params.id) } })
-        )
     }
+    if (gradeFind.sections.length > 0) {
+        return res.status(400).json({
+            message: `Cannot delete grade level with section`
+        })
+    }
+    return res.status(200).json(
+        await prisma.gradeLevel.delete({ where: { id: parseInt(req.params.id) } })
+    )
+
 
 }
 
