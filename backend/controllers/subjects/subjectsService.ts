@@ -106,16 +106,20 @@ export const update = [
 // remove
 export async function remove(req: Request, res: Response) {
     if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
-    const subject = await prisma.subject.findUnique({ where: { id: parseInt(req.params.id) } })
+    const subject = await prisma.subject.findUnique({ where: { id: parseInt(req.params.id) }, include: { topics: true } })
     if (!subject) {
         return res.status(400).json({
             message: `Subject #${req.params.id} not found or does not exist`
         })
-    } else {
-        return res.status(200).json(
-            await prisma.subject.delete({ where: { id: parseInt(req.params.id) } })
-        )
     }
+    if (subject.topics.length > 0) {
+        return res.status(400).json({
+            message: `Cannot delete subject with topic`
+        })
+    }
+    return res.status(200).json(
+        await prisma.subject.delete({ where: { id: parseInt(req.params.id) } })
+    )
 }
 
 

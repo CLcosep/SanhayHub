@@ -106,16 +106,21 @@ export const update = [
 // remove
 export async function remove(req: Request, res: Response) {
     if (isNaN(parseInt(req.params.id))) return res.status(400).json({ message: 'Please provide a valid id in params' });
-    const section = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) } })
+    const section = await prisma.section.findUnique({ where: { id: parseInt(req.params.id) }, include: { subjects: true } })
     if (!section) {
         return res.status(400).json({
             message: `section #${req.params.id} not found or does not exist`
         })
-    } else {
-        return res.status(200).json(
-            await prisma.section.delete({ where: { id: parseInt(req.params.id) } })
-        )
     }
+    if (section.subjects.length > 0) {
+        return res.status(400).json({
+            message: `Cannot delete section with subject`
+        })
+    }
+
+    return res.status(200).json(
+        await prisma.section.delete({ where: { id: parseInt(req.params.id) } })
+    )
 }
 
 
