@@ -1,6 +1,6 @@
 <script setup lang="ts">
  const sectionId = useRoute().params.sectionId
- const subjectId = useRoute().params.subjectId
+ const subjectIds = useRoute().params.subjectId
     const gradeLevelId = useRoute().params.gradeLevelId
     const form = reactive<{topicName: string, file: File | null}>({
         topicName: '',
@@ -16,7 +16,7 @@
     async function buttonHandler() {
     const formData = new FormData()
     formData.append("name", form.topicName)
-    formData.append("subjectId", subjectId.toString())
+    formData.append("subjectId", subjectIds.toString())
     formData.append("file", form.file as File)
     const API = useRuntimeConfig().public.API
     const token = useCookie('auth_token').value
@@ -32,7 +32,7 @@
     })
     if (data){
       alert(`Successfully created ${data.name}`)
-      await navigateTo(`/gradeLevel/${gradeLevelId}/section/${sectionId}/subjects/${subjectId}/topics/${data.id}`)
+      await navigateTo(`/gradeLevel`)
     }
 }
 

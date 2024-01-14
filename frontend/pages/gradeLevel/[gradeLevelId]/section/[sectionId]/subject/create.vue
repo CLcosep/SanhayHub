@@ -59,7 +59,7 @@
             </form>
            <div class="signBtn flex flex-col gap-4 justify-center">
                 <button @click="buttonHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">
-                    Add section
+                    Add subject
                 </button>
             <NuxtLink :to="`/gradeLevel/${gradeLevelId}/section/${sectionId}`" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
            </div>
