@@ -48,7 +48,7 @@ async function buttonHandler() {
         <!-- display dommino -->
         <div class="container display-box border mx-auto flex items-center justify-center p-4">
             <div class="grid grid-cols-5">           
-                <NuxtLink :to="`/gradeLevel/${gradeLevelId}/section/${sectionId}create`">
+                <NuxtLink :to="`/gradeLevel/${gradeLevelId}/section/${sectionId}/create`">
                     <div class="flex items-center justify-center border-2 bg-blue-500 h-20 w-64 mr-10 rounded-md">
                         <p class="text-center text-2xl">Add new</p>
                     </div>
