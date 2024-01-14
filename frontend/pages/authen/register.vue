@@ -21,7 +21,7 @@
             alert(error.data.message)
         })
         if (data){
-            alert(`Successfuly registered ${data.name}`)
+            alert(`Successfuly registered ${data.username}`)
         }
     }
 
