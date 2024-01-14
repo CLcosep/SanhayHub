@@ -29,7 +29,7 @@
     })
     if (data){
       alert(`Successfully created ${data.name}`)
-      await navigateTo(`/gradeLevel/${gradeLevelId}/section/${sectionId}/subjects/${data.id}`)
+      await navigateTo(`/gradeLevel/${gradeLevelId}/section/${sectionId}`)
     }
 
 }
