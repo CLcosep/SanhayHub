@@ -4,14 +4,24 @@
     console.log(API)
     const { data } = await useFetch<[{id: number, name: string, gradeNo: number}]>(`${API}/gradeLevels/`)
     console.log(data.value)
+
+
+
+
 </script>
 
 
 <template>
     <div class="h-screen">
         <!-- nav -->
-        <div class="flex items-center justify-center">
-            <p class="text-black text-opacity-50">~/gradeLevel/</p>        
+        <div class="flex flex-1 basis-0 p-4 items-center justify-center">
+
+            <div class="flex flex-1 basis-0 items-center justify-center">
+                <p class="text-black text-opacity-50">~/gradeLevel/</p>        
+            </div>
+            <!-- <div class="flex flex-1 basis-0 items-center justify-center">
+                <button @click="buttonHandler">Delete</button>
+            </div> -->
         </div>
         <!-- display dommino -->
         <div class="container display-box border mx-auto flex items-center justify-center p-4">

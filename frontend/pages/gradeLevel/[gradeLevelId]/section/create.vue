@@ -1,21 +1,43 @@
 <script setup>
+    const gradeLevelId = useRoute().params.gradeLevelId
     const form = reactive({
-        sectionName: '',
-        sectionNum: '',
+        sectionName: ''
+
     })
 
      definePageMeta({
         layout: 'default'
     })
 
-    async function buttonHandler() {
-    await navigateTo('/gradeLevel');
-}
+    const errors = ref([])
+
+    async function buttonHandler(e) {
+        const API = useRuntimeConfig().public.API
+        const token = useCookie('auth_token').value
+        const data = await $fetch(`${ API}/sections`, {
+            method: 'POST',
+            body: JSON.stringify({
+                name: form.sectionName,
+                gradeId: useRoute().params.gradeLevelId
+            }), 
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .catch(error => {
+            errors.value = error.data.errors
+        })
+        if (data){
+          alert(`Successfully created ${data.name}`)
+          await navigateTo(`/gradeLevel/${gradeLevelId}/section/${data.id}`)
+        }
+    }
+    // section form 
+
 </script>
 
 
 <template>
->
 
     <div class="container mx-auto flex flex-col items-center mb-40">
         <div class="flex justify-center">
@@ -23,7 +45,7 @@
         </div>
         <div class="form-box rounded-2xl w-full max-w-md">
             <h1 class="relative" ref="titleRef">
-               Section form 
+                Section form 
                 <span class="custom-after"></span>
             </h1>
             <form>
@@ -31,18 +53,17 @@
                     <div class="input-field" ref="nameFieldRef">
                         <input type="text" v-model="form.sectionName" placeholder="Section name">
                     </div>
-                    <div class="input-field" >
-                        <input type="number" v-model="form.sectionNum" placeholder="Grade ID">
-                    </div>
                 </div>
             </form>
            <div class="signBtn flex flex-col gap-4 justify-center">
                 <button @click="buttonHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">
-                    Add section
+                    Add Section
                 </button>
-            <NuxtLink to="/gradeLevel" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
+            <NuxtLink :to="`/gradeLevel/${gradeLevelId}`" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
            </div>
         </div>
+
+        <div>{{ errors }}</div>
     </div>
 </template>
 

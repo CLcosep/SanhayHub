@@ -1,16 +1,56 @@
-<script setup>
-    const form = reactive({
+<script setup lang="ts">
+ const sectionId = useRoute().params.sectionId
+ const subjectId = useRoute().params.subjectId
+    const gradeLevelId = useRoute().params.gradeLevelId
+    const form = reactive<{topicName: string, file: File | null}>({
         topicName: '',
-        topicNum: '',
+        file: null
     })
 
      definePageMeta({
         layout: 'default'
     })
 
+    const errors = ref([])
+
     async function buttonHandler() {
-    await navigateTo('/gradeLevel');
+    const formData = new FormData()
+    formData.append("name", form.topicName)
+    formData.append("subjectId", subjectId.toString())
+    formData.append("file", form.file as File)
+    const API = useRuntimeConfig().public.API
+    const token = useCookie('auth_token').value
+    const data = await $fetch<any>(`${ API}/topics`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .catch(error => {
+        errors.value = error.data.errors
+    })
+    if (data){
+      alert(`Successfully created ${data.name}`)
+      await navigateTo(`/gradeLevel/${gradeLevelId}/section/${sectionId}/subjects/${subjectId}/topics/${data.id}`)
+    }
 }
+
+
+import { useFileDialog } from '@vueuse/core'
+import { stringifyQuery } from 'vue-router';
+
+const { files, open, reset, onChange } = useFileDialog({
+  accept: 'application/pdf', // Set to accept only image files
+  directory: false, // Select directories instead of files if set true
+})
+
+onChange((files) => {
+  form.file = files?.[0] as File
+  
+})
+
+//topic form
 </script>
 
 
@@ -31,14 +71,21 @@
                     <div class="input-field" ref="nameFieldRef">
                         <input type="text" v-model="form.topicName" placeholder="Topic name">
                     </div>
-                    <div class="input-field" >
-                        <input type="number" v-model="form.topicNum" placeholder="Subject ID">
-                    </div>
-                    <form class="max-w-lg mx-auto">
+                    <button type="button" @click="(open as any)">
+                         Choose file
+                    </button>
+                    <div v-if="files">
+                    <p>You have selected: <b>{{ `${files.length} ${files.length === 1 ? 'file' : 'files'}` }}</b></p>
+                        <li v-for="file of files" :key="file.name">
+                            {{ file.name }}
+                        </li>
+                </div>
+                    <!-- <form class="max-w-lg mx-auto">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload file</label>
                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file">
-                    </form>
-                </div>
+                    </form> -->
+                </div> 
+                
             </form>
            <div class="signBtn flex flex-col gap-4 justify-center">
                 <button @click="buttonHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">

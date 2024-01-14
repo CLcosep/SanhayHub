@@ -13,7 +13,7 @@
     async function buttonHandler(e) {
         const API = useRuntimeConfig().public.API
         const token = useCookie('auth_token').value
-        const data = await $fetch(`${ API}/gradeLevels`, {
+        const data = await $fetch(`${ API}/gradeLevels/`, {
             method: 'POST',
             body: JSON.stringify({
                 name: form.gradeName,
@@ -31,12 +31,15 @@
           await navigateTo(`/gradeLevel/${data.id}`)
         }
     }
+    //gradeLevel form
+
+    
 
 </script>
 
 
 <template>
-
+    
     <div class="container mx-auto flex flex-col items-center mb-40">
         <div class="flex justify-center">
             <img src="~/assets/anhs_logo.png" alt="" class="w-24 h-24 mb-8"/>
@@ -63,6 +66,9 @@
             <NuxtLink to="/gradeLevel" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
            </div>
         </div>
+
+
+        
 
         <div>{{ errors }}</div>
     </div>

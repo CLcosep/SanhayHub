@@ -1,16 +1,40 @@
 <script setup>
+    const sectionId = useRoute().params.sectionId
+    const gradeLevelId = useRoute().params.gradeLevelId
     const form = reactive({
         subjectName: '',
-        subjectNum: '',
     })
 
      definePageMeta({
         layout: 'default'
     })
 
-    async function buttonHandler() {
-    await navigateTo('/gradeLevel');
+    const errors = ref([])
+
+    async function buttonHandler(e) {
+    const API = useRuntimeConfig().public.API
+    const token = useCookie('auth_token').value
+    const data = await $fetch(`${ API}/subjects`, {
+        method: 'POST',
+        body: JSON.stringify({
+            name: form.subjectName,
+            sectionId: sectionId
+        }), 
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .catch(error => {
+        errors.value = error.data.errors
+    })
+    if (data){
+      alert(`Successfully created ${data.name}`)
+      await navigateTo(`/gradeLevel/${gradeLevelId}/section/${sectionId}/subjects/${data.id}`)
+    }
+
 }
+
+//subject form
 </script>
 
 
@@ -31,16 +55,13 @@
                     <div class="input-field" ref="nameFieldRef">
                         <input type="text" v-model="form.subjectName" placeholder="Subject name">
                     </div>
-                    <div class="input-field" >
-                        <input type="number" v-model="form.subjectNum" placeholder="Section ID">
-                    </div>
                 </div>
             </form>
            <div class="signBtn flex flex-col gap-4 justify-center">
                 <button @click="buttonHandler" class="bg-[#102A71] py-4 rounded-md text-white font-bold">
-                    Add subject
+                    Add section
                 </button>
-            <NuxtLink to="/gradeLevel" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
+            <NuxtLink :to="`/gradeLevel/${gradeLevelId}/section/${sectionId}`" class="underline " > <span class="text-[#102A71]">Cancel</span></NuxtLink>
            </div>
         </div>
     </div>

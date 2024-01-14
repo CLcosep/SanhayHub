@@ -4,6 +4,10 @@
     console.log(API)
     const { data } = await useFetch<[{id: number, name: string, gradeNo: number}]>(`${API}/gradeLevels/`)
     console.log(data.value)
+
+
+
+
 </script>
 <!-- change some to section -->
 
@@ -17,6 +21,7 @@
                 <span><NuxtLink to="/gradeLevel/">subject</NuxtLink></span>
                 /topic</p>        
         </div>
+        
         <!-- display dommino -->
         <div class="container display-box border mx-auto flex items-center justify-center p-4">
             <div class="grid grid-cols-5">           
