@@ -60,7 +60,7 @@ async function buttonHandler() {
 <div class="container display-box border mx-auto p-4">  
     <div class="w-full h-full   ">
         <object :data="data?.file" width="100%" height="1000px">
-        <p>Unable to display PDF file. <a href="https://abqopicptqwazdvvampm.supabase.co/storage/v1/object/public/PDFs/file/e09f9842-9e08-4f39-a742-f63dcac08748.pdf">Download</a> instead.</p>
+        <p>Unable to display PDF file. <a :href="data?.file">Download</a> instead.</p>
         </object>
     </div>
 </div>
