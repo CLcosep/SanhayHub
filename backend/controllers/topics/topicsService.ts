@@ -18,7 +18,7 @@ export const create = [
             if (req.file.mimetype !== "application/pdf") {
                 fileError.push({ type: 'field', msg: 'Please provide a pdf file', location: 'file' as Location, path: 'file/mimetype', value: req.file.mimetype })
             }
-            if (req.file.size > 1024 * 1024 * 10) {
+            if (req.file.size > 1024 * 1024 * 500) {
                 fileError.push({ type: 'field', msg: 'Please provide a file less than 10mb', location: 'file' as Location, path: 'file/size', value: req.file.size })
             }
         }
